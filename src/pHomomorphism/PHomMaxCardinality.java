@@ -83,6 +83,16 @@ public class PHomMaxCardinality implements PHomomorphism {
     public double calculatepHomSimScore(Boolean[][] G1, Boolean[][] G2, double[][] mappingScores, double threshHold, double[] w) 
     {
         //Validating Inputs
+        if (Double.isNaN(threshHold) || threshHold <= 0 || threshHold > 1)
+        {
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, "Value of threshold shuold be between 0 and 1; Setting threshold to default of 0.5 ..!!");
+            threshHold = 0.5;
+        }
+        if(G1 == null || G2 == null || mappingScores == null || w==null)
+        {
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, "Matrices G1, G2, mappingScores or array w cannot be null, program cant Continue..!");
+            return -1;
+        }            
         if(G1.length != G1[0].length)
         {
             Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, "Matrix G1 needs to be a square Matrix, program cant Continue..!");
@@ -154,6 +164,16 @@ public class PHomMaxCardinality implements PHomomorphism {
     public double calculatepHomSimScore(Boolean[][] G1, Boolean[][] G2, double[][] mappingScores, double threshHold) 
     {
         //Validating Inputs
+        if (Double.isNaN(threshHold) || threshHold <= 0 || threshHold > 1)
+        {
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, "Value of threshold shuold be between 0 and 1; Setting threshold to default of 0.5 ..!!");
+            threshHold = 0.5;
+        }
+        if(G1 == null || G2 == null || mappingScores == null)
+        {
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, "Matrices G1, G2, mappingScores or array w cannot be null, program cant Continue..!");
+            return -1;
+        }         
         if(G1.length != G1[0].length)
         {
             Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, "Matrix G1 needs to be a square Matrix, program cant Continue..!");
@@ -300,6 +320,8 @@ public class PHomMaxCardinality implements PHomomorphism {
             /*4*/{0.3, 0.3, 0.3, 0.8},
             /*5*/{0.2, 0.2, 0.2, 0.15}
         };
+        
+       Boolean[][] x = null;
 
         double threshHold = 0.5;
         double[] w = {0.5, 0.7, 0.2, 1.0, 0.2, 0.2};
