@@ -144,6 +144,14 @@ public class Util {
         List2.add(4);
 
         out.println(intersection(List1, List2));
+        
+                Boolean[][] G1 = new Boolean[][] {
+            {false, true , true , false},
+            {false, false, false, false},
+            {false, false, false, false},    };
+                
+                out.println(G1.length + "--"+ G1[0].length);
+        
 
     }//main
 

@@ -12,7 +12,7 @@ import static java.lang.System.out;
 public class MaxCardinality {
 
     private List<Match> mapping = new ArrayList<Match>();
-    private final boolean debug = true;
+    private final boolean debug = false;
 
     /**
      * Returns the p-Hom Mapping between G1 and G2
