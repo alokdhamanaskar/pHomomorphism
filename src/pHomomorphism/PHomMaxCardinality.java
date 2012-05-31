@@ -1,47 +1,153 @@
 
 package pHomomorphism;
 
-
 import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Alok Dhamanaskar (alokd@uga.edu)
- * @see LICENSE (MIT style license file). 
+ * @see LICENSE(MIT style license file). 
+ * 
+ * This class Implements all the methods of the interface PHomomorphism.
  */
 public class PHomMaxCardinality implements PHomomorphism {
     
     private List<Match> mapping = new ArrayList<Match>();
+    private double rawScore = 0.0;
+    private double weightedScore = 0.0;
+    private double weightedSimScore = 0.0;
 
+        
+    /**
+     * Score that serves as a similarity measure between G1 and G2 as 
+     * it also considers how close are the two nodes that are mapped.
+     * @return the weightedSimScore
+     */
+    @Override
+    public double getWeightedSimScore() {
+        return weightedSimScore;
+    }//weightedSimScore
+
+
+    /**
+     * Weighted fraction of number of nodes in G1 mapped to nodes in G2; 
+     * Does not consider how closely are the nodes matched, once the value is above the specified threshold.
+     * @return the weightedScore
+     */
+    @Override
+    public double getWeightedScore() {
+        return weightedScore;
+    }//getWeightedScore
+    
+    /**
+     * Returns the Mapping between nodes of Graph1 and Graph2
+     * 
+     * @return List of matches <G1node, G2node>
+     */
     @Override
     public List<Match> getMapping()
     {
         return mapping;
     }//getMapping
     
+    /**
+     * Returns the Raw Score which represents fraction of nodes of Graph1 
+     * that could be mapped to nodes in Graph2
+     * 
+     * @return RawScore
+     */
     @Override
-    public double calculatepHomSimScore(Boolean[][] G1, Boolean[][] G2, double[][] mappingScores, double threshHold, double[] w) {
-        
+    public double getRawScore() {
+        return rawScore;
+    }//getRawScore
+    
+    /**
+     * Calculates p-Hom Mapping from Nodes of G1 to G2. 
+     * i.e. The Direction of p-Homomorphism is G1 p-HOM G2
+     * Tries to map nodes of Graph G1 to nodes in Graph G2
+     *
+     * @param G1 Adjacency Matrix Representation of Graph1
+     * @param G2 Adjacency Matrix Representation of Graph2
+     * @param mappingScores Matrix that stores Match scores for every node v in
+     * G1 to every node v' in graph V2
+     * @param w An array that stores weights of the nodes in Graph 1
+     * @param threshHold value between 0-1 s.t. v-v' matches scoring above it will only be considered
+     * 
+     * @return weightedScore
+     */
+    @Override
+    public double calculatepHomSimScore(Boolean[][] G1, Boolean[][] G2, double[][] mappingScores, double threshHold, double[] w) 
+    {
         MaxCardinality maxCard = new MaxCardinality();
         maxCard.calcMaxCardMapping(G1, G2, mappingScores, threshHold);
         mapping = maxCard.getMapping();
-        double rawScore = (double) mapping.size() / (double) G1.length;
+        
+        double numr  = 0.0;
+        double numrSim  = 0.0;
+        double denom = 0.0;
+        
+        for(Match m : mapping)
+        {
+            Integer i = m.g1node;
+            numrSim  += (w[i] * mappingScores[i][m.g2node]);
+            numr  += w[i];
+        }//for
+        
+        for(int j=0; j< w.length; j++)
+            denom+= w[j];
+
+        //Weighted fraction of no. of nodes in G1 mapped to nodes in G2; 
+        weightedScore = numr / denom;        
+        
+        // Score that serves as a similarity measure between G1 and G2
+        weightedSimScore = numrSim / denom;
+
+        //Raw Score Represents fraction of nodes of Graph1 that could be mapped to nodes in Graphe
+        rawScore = (double) mapping.size() / (double) G1.length;
+        
+        return weightedScore;
+    }//calculatepHomSimScore
+    
+    /**
+     * Calculates p-Hom Mapping from Nodes of G1 to G2. 
+     * i.e. The Direction of p-Homomorphism is G1 p-HOM G2
+     * Tries to map nodes of Graph G1 to nodes in Graph G2
+     *
+     * @param G1 Adjacency Matrix Representation of Graph1
+     * @param G2 Adjacency Matrix Representation of Graph2
+     * @param mappingScores Matrix that stores Match scores for every node v in
+     * G1 to every node v' in graph V2
+     * @param threshHold value between 0-1 s.t. v-v' matches scoring above it will only be considered
+     * 
+     * @return rawScore
+     */        
+    @Override
+    public double calculatepHomSimScore(Boolean[][] G1, Boolean[][] G2, double[][] mappingScores, double threshHold) 
+    {
+        MaxCardinality maxCard = new MaxCardinality();
+        maxCard.calcMaxCardMapping(G1, G2, mappingScores, threshHold);
+        mapping = maxCard.getMapping();
+        
+        //Raw Score Represents fraction of nodes of Graph1 that could be mapped to nodes in Graphe
+        rawScore = (double) mapping.size() / (double) G1.length;
         
         return rawScore;
     }//calculatepHomSimScore
+
     
     public static void main(String[] args)
     {
+        //Test Code
+        //For more Sample Runs Refer to Test.java
               Boolean[][] G1 = {
-            //      1,     2,     3,     4,     5,     6
-            /*1*/{false, true,  true,  false, false, false},
-            /*2*/{false, false, false, true,  true,  false},
-            /*3*/{false, false, false, false, false, true},
+            //      0,     1,     2,     3,     4,     5
+            /*0*/{false, true,  true,  false, false, false},
+            /*1*/{false, false, false, true,  true,  false},
+            /*2*/{false, false, false, false, false, true},
+            /*3*/{false, false, false, false, false, false},
             /*4*/{false, false, false, false, false, false},
-            /*5*/{false, false, false, false, false, false},
-            /*6*/{false, false, false, false, false, false}
+            /*5*/{false, false, false, false, false, false}
         };
 
         Boolean[][] G2 = {
@@ -63,13 +169,17 @@ public class PHomMaxCardinality implements PHomomorphism {
         };
 
         double threshHold = 0.4;
-        double[] w = new double[10];
+        double[] w = {0.5, 0.7, 0.2, 1.0, 0.2, 0.2};
         PHomomorphism p = new PHomMaxCardinality();
-        
-        out.println(p.calculatepHomSimScore(G1, G2, mat, threshHold, w));
+        p.calculatepHomSimScore(G1, G2, mat, threshHold, w);
+
+        out.println("Raw Score                   = " + p.getRawScore());
+        out.println("Weighted Score              = " + p.getWeightedScore());
+        out.println("Weighted Similarity measure = " + p.getWeightedSimScore());
+        out.println();
         Util.printMatches(p.getMapping());
-        
         
     }//main
 
-}
+
+}//PHomMaxCardinality

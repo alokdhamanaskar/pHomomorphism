@@ -109,14 +109,27 @@ public class Util {
         }
     }//printMatches
     
-    static void printMatches(List<Match> mapping) {
+    public static void printMatches(List<Match> mapping) {
          
         out.println("Matches : ");
         for (Match i : mapping) {
             out.println(i.g1node + "-->" + i.g2node);
         }
     }
-
+    
+    public static void printGraph(Boolean[][] Graph)
+    {
+        for (int i = 0; i < Graph.length; i++) 
+        {
+            for (int j = 0; j < Graph.length; j++)
+            {
+                int t = (Graph[i][j] == true)? 1 : 0;
+                out.print("  " + t);
+            }//inner for
+            out.println();
+        }//outer for
+    }
+    
     public static void main(String[] args) {
         //Test code
         ArrayList<Integer> List1 = new ArrayList<Integer>();

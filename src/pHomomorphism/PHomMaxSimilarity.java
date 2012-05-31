@@ -8,7 +8,8 @@ import java.util.List;
 /**
  *
  * @author Alok Dhamanaskar (alokd@uga.edu)
- * @see LICENSE (MIT style license file). 
+ * @see LICENSE (MIT style license file).
+ * Yet to be implemented
  */
 public class PHomMaxSimilarity implements PHomomorphism {
     
@@ -26,6 +27,26 @@ public class PHomMaxSimilarity implements PHomomorphism {
 
     @Override
     public List<Match> getMapping() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double getRawScore() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double getWeightedSimScore() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double getWeightedScore() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double calculatepHomSimScore(Boolean[][] G1, Boolean[][] G2, double[][] mappingScores, double threshHold) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
