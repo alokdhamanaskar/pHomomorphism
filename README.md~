@@ -1,7 +1,8 @@
 pHomomorphism
 =============
 
-The package is written as a part of Service Suggestion Engine to work with 
+The package is written as a part of Service Suggestion Engine 
+to work with 
  package to calculate p-Homomorphism mapping between Two Graphs.
 It takes in two graphs as Adjacency Lists or Adjacency Matrix and calculates p-Homomorphism Mapping.
 

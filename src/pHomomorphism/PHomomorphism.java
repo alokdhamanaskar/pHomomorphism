@@ -1,6 +1,8 @@
 
 package pHomomorphism;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,6 +41,21 @@ public interface PHomomorphism {
      */
      public double calculatepHomSimScore
              (Boolean[][] G1, Boolean[][] G2, double[][] mappingScores, double threshHold);
+     
+    /**
+     * Method to Calculate pHom Similarity Score between Graphs G1 and G2, without considering Weighting
+     * 
+     * @param G1 Adjacency List Representation of Graph1
+     * @param G2 Adjacency List Representation of Graph2
+     * @param mappingScores Matrix that stores Match scores for every node v in
+     * G1 to every node v' in graph V2
+     * @param threshHold value between 0-1 s.t. v-v' matches scoring above it will only be considered
+     * @return rawScore
+     */
+     public double calculatepHomSimScore
+             (HashMap<Integer, ArrayList<Integer>> G1,HashMap<Integer, ArrayList<Integer>> G2, double[][] mappingScores, double threshHold);         
+
+     
      
     /**
      * Returns the Raw Score which represents fraction of nodes of Graph1 

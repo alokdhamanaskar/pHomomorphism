@@ -3,6 +3,7 @@ package pHomomorphism;
 
 import static java.lang.System.out;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -134,7 +135,11 @@ public class PHomMaxCardinality implements PHomomorphism {
         
         return rawScore;
     }//calculatepHomSimScore
-
+    
+    @Override
+    public double calculatepHomSimScore(HashMap<Integer, ArrayList<Integer>> G1, HashMap<Integer, ArrayList<Integer>> G2, double[][] mappingScores, double threshHold) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     public static void main(String[] args)
     {
@@ -180,6 +185,7 @@ public class PHomMaxCardinality implements PHomomorphism {
         Util.printMatches(p.getMapping());
         
     }//main
+
 
 
 }//PHomMaxCardinality
