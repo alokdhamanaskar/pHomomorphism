@@ -141,6 +141,11 @@ public class PHomMaxCardinality implements PHomomorphism {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    @Override
+    public double calculatepHomSimScore(HashMap<Integer, ArrayList<Integer>> G1, HashMap<Integer, ArrayList<Integer>> G2, double[][] mappingScores, double threshHold, double[] w) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
     public static void main(String[] args)
     {
         //Test Code
@@ -185,6 +190,7 @@ public class PHomMaxCardinality implements PHomomorphism {
         Util.printMatches(p.getMapping());
         
     }//main
+
 
 
 

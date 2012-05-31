@@ -55,7 +55,21 @@ public interface PHomomorphism {
      public double calculatepHomSimScore
              (HashMap<Integer, ArrayList<Integer>> G1,HashMap<Integer, ArrayList<Integer>> G2, double[][] mappingScores, double threshHold);         
 
-     
+         
+     /**
+     * Method to Calculate pHom Similarity Score between Graphs G1 and G2, without considering Weighting
+     * 
+     * @param G1 Adjacency List Representation of Graph1
+     * @param G2 Adjacency List Representation of Graph2
+     * @param mappingScores Matrix that stores Match scores for every node v in
+     * G1 to every node v' in graph V2
+     * @param threshHold value between 0-1 s.t. v-v' matches scoring above it will only be considered
+     * @param w An array that stores weights of the nodes in Graph 1
+     * @return weightedScore
+     */
+     public double calculatepHomSimScore
+             (HashMap<Integer, ArrayList<Integer>> G1,HashMap<Integer, ArrayList<Integer>> G2, double[][] mappingScores, double threshHold, double[] w);         
+
      
     /**
      * Returns the Raw Score which represents fraction of nodes of Graph1 

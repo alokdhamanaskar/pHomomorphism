@@ -9,10 +9,7 @@ The package is written independently, to be used for calculating the overlap bet
 This package however can be independently used to calculate similarity between two Graphs. 
 For this it uses p-Homomorphism algorithms proposed in the paper, Graph homomorphism revisited for graph matching (dl.acm.org/citation.cfm?id=1920986)
 pHomomorphism is variant of sub-graph homomorphism that is less strict than traditional Homomorphism.
-
-For examples to run see Test.java
-To See a Step by Step calculation of the algorithm set debug = true in MaxCardinality.java 
-Refer to JavaDocs for additional Details.
+Refer to JavaDocs for additional Details
 
 
 
